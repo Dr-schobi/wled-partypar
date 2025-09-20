@@ -9,7 +9,12 @@ But for a quick temporary decoration the power supply, wiring and housing is not
 For occasional decoration, I found an easy way to have an LED spot with adjustable color.
 
 This Project is based on a [Thomann Fun Generation USB PartyPar](https://www.thomann.de/de/fun\_generation\_usb\_partypar\_6\_rgb.htm) light. I got mine for 13,50€ each. The light comes in a plastic housing with a 5V 2A USB power supply and features 6x 3W RGB LEDs. Enough for a night-time illumination or halloween decoration.
-However, on its own, the light is dumb and can only blink.
+However, on its own, the light is dumb and can only fade/blink.
+
+Looking at the PWM signal of the original microconcoller, I can see 31kHz signals for each channel at 5V levels.
+This signal goes to an OC7141 LED driver which expects 0.7*VDD as high. Driving this at 3.3V is borderline but seems to work well enough.
+![original pwm signal in the ParyPar](SDS804X_HD_PNG_4.png)
+
 
 I was able to modify the circuitry to be driven by an [NodeMCU ESP32](https://joy-it.net/en/products/SBC-NodeMCU-ESP32) which fits nicely into the housing and gives a seamless upgrade. For software, the [WLED Project](https://kno.wled.ge/) directly supports setups with a single pixel and a PWM output. You get the benefit of wireless adjustments, multi-light synchronization and different animations.
 It is surprisingly versatile for being just a single pixel.
@@ -47,7 +52,12 @@ Finally, the ESP32 needds to be fixed in the housing. I just hot-glued the modul
 
 ### Software setup
 
-The wled Firmware in the ESP32 needs to be set to one RGB-Pixel with PWM outputs.
+The wled firmware in the ESP32 needs to be set to one RGB-Pixel with PWM outputs.
+Selecting a single PWM RGB led with "Normal" PWM frequency results in 19.5kHz (less than the original 31kHz). 
+From the OC7141 datasheet I would expect a 10kHz frequency and slightly higher signal voltage could be better, but so far this seems to work fine.
+![WLED settings](settings.png)
+
+
 
 ### drawback and alternatives
 
