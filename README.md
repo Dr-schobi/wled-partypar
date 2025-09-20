@@ -1,6 +1,6 @@
-## WLED PartyPar
+## WLED PartyPar Light 
 
-Modifying a cheap LED spot with WLED.
+Modifying the cheapest LED spot with WLED.
 
 ![modified PartyPar LED spot](outside.jpg)
 
@@ -29,6 +29,7 @@ This work is inspired by [protyposis](https://protyposis.net/blog/rgb-led-party-
 
 You need to open up the light and void the warranty (4 screws).
 There is two PCBs inside, the left PCB contains the LEDs and is screwed to the front housing. The right PCB is the controls and screwed to the back of the housing.
+
 ![overview of the opened light](overview.jpg)
 
 I'm modifying the the control PCB.
@@ -55,6 +56,7 @@ Finally, the ESP32 needds to be fixed in the housing. I just hot-glued the modul
 The wled firmware in the ESP32 needs to be set to one RGB-Pixel with PWM outputs.
 Selecting a single PWM RGB led with "Normal" PWM frequency results in 19.5kHz (less than the original 31kHz). 
 From the OC7141 datasheet I would expect a 10kHz frequency and slightly higher signal voltage could be better, but so far this seems to work fine.
+
 ![WLED settings](settings.png)
 
 
